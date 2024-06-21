@@ -2,7 +2,7 @@
 // Process delete operation after confirmation
 if(isset($_POST["id"]) && !empty($_POST["id"])){
     // Include config file
-    require_once "config.php";
+    require_once "./db/config.php";
     
     // Prepare a delete statement
     $sql = "DELETE FROM employees WHERE id = :id";
@@ -17,7 +17,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
         // Attempt to execute the prepared statement
         if($stmt->execute()){
             // Records deleted successfully. Redirect to landing page
-            header("location: index.php");
+            header("location: crud.php");
             exit();
         } else{
             echo "Oops! Something went wrong. Please try again later.";
@@ -64,7 +64,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
                             <p>Are you sure you want to delete this employee record?</p>
                             <p>
                                 <input type="submit" value="Yes" class="btn btn-danger">
-                                <a href="index.php" class="btn btn-secondary ml-2">No</a>
+                                <a href="crud.php" class="btn btn-secondary ml-2">No</a>
                             </p>
                         </div>
                     </form>
