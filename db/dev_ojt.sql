@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 21, 2024 at 07:35 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- Generation Time: Jun 25, 2024 at 09:11 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,7 +29,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `employees` (
   `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
+  `last_name` varchar(100) NOT NULL,
+  `first_name` varchar(100) NOT NULL,
+  `middle_name` varchar(100) NOT NULL,
   `address` varchar(255) NOT NULL,
   `salary` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -38,8 +40,8 @@ CREATE TABLE `employees` (
 -- Dumping data for table `employees`
 --
 
-INSERT INTO `employees` (`id`, `name`, `address`, `salary`) VALUES
-(1, 'ahrn', 'tankulan', 500);
+INSERT INTO `employees` (`id`, `last_name`, `first_name`, `middle_name`, `address`, `salary`) VALUES
+(1, 'Pacheco', 'Ahrn', 'Alilin', 'Manolo Fortich', 123456);
 
 -- --------------------------------------------------------
 
@@ -59,7 +61,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `created_at`) VALUES
-(1, 'admin', '$2y$10$EIlwLz5255n7UV9iYBk57ONfIjlvhxbP.1mEKbpAPvqUYjcryIFXu', '2024-06-21 11:04:22');
+(1, 'admin', '$2y$10$K9TVjY5sfi5sAaBi1CqPOeuin/lvRsV7Q0q1Y7AjGXqXKH3YQ8uOW', '2024-06-18 13:48:50');
 
 --
 -- Indexes for dumped tables

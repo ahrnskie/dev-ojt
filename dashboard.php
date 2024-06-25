@@ -108,7 +108,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                           <thead>
                             <tr>
                               <th>#</th>
-                              <th>Name</th>
+                              <th>Last Name</th>
+                              <th>First Name</th>
+                              <th>Middle Name</th>
                               <th>Address</th>
                               <th>Salary</th>
                               <th>Action</th>
@@ -118,7 +120,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                              <?php while ($row = $result->fetch()) : ?>
                               <tr>
                                 <td><?= $row['id'] ?></td>
-                                <td><?= $row['name'] ?></td>
+                                <td><?= $row['last_name'] ?></td>
+                                <td><?= $row['first_name'] ?></td>
+                                <td><?= $row['middle_name'] ?></td>
                                 <td><?= $row['address'] ?></td>
                                 <td><?= $row['salary'] ?></td>
                                 <td>
@@ -132,7 +136,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                       <tfoot>
                           <tr>
                               <th>#</th>
-                              <th>Name</th>
+                              <th>Last Name</th>
+                              <th>First Name</th>
+                              <th>Middle Name</th>
                               <th>Address</th>
                               <th>Salary</th>
                               <th>Action</th>
