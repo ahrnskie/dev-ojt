@@ -3,8 +3,8 @@
 require_once "./db/config.php";
  
 // Define variables and initialize with empty values
-$accomplishments = $date = $evidences = $remarks = "";
-$accomplishments_err = $date_err = $evidences_err = $remarks_err = "";
+$Name = $address = $Created_at = $Modified_at"";
+$Name_err = $address_err = $Created_at_err = $Modified_at_err"";
 
 // Flag to check if the form was submitted successfully
 $form_submitted = false;
@@ -13,46 +13,54 @@ $duplicate_record = false;
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     
-    // Validate accomplishments
-    $input_accomplishments = trim($_POST["accomplishments"]);
-    if(empty($input_ccomplishments)){
-        $accomplishments_err = "Please enter a Last middle name.";
-    } elseif(!filter_var($input_accomplishments, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))){
-        $accomplishments_err = "Please enter a valid middle name.";
+    // Validate last name
+    $input_Name = trim($_POST["Name"]);
+    if(empty($input_Name)){
+        $Name_err = "Please enter a Last middle name.";
+    } elseif(!filter_var($input_Name, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))){
+        $Name_err = "Please enter a valid middle name.";
     } else{
-        $accomplishments = $input_accomplishments;
+        $last_name = $input_last_name;
     }
     
-    // Validate date
-    $input_date = trim($_POST["date"]);
-    if(empty($input_date)){
-        $first_date_err = "Please enter a first name.";
-    } elseif(!filter_var($input_date, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))){
-        $date_err = "Please enter a valid middle name.";
+    // Validate first name
+    $input_first_name = trim($_POST["first_name"]);
+    if(empty($input_first_name)){
+        $first_name_err = "Please enter a first name.";
+    } elseif(!filter_var($input_first_name, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))){
+        $first_name_err = "Please enter a valid middle name.";
     } else{
-        $date = $input_date;
+        $first_name = $input_first_name;
     }
 
-    // Validate evidences
-    $input_evidences = trim($_POST["evidences"]);
-    if(empty($input_evidences)){
-        $middle_evidences_err = "Please enter a middle name.";
-    } elseif(!filter_var($input_evidences, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))){
-        $evidences_err = "Please enter a valid middle name.";
+    // Validate middle name
+    $input_middle_name = trim($_POST["middle_name"]);
+    if(empty($input_middle_name)){
+        $middle_name_err = "Please enter a middle name.";
+    } elseif(!filter_var($input_middle_name, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))){
+        $middle_name_err = "Please enter a valid middle name.";
     } else{
-        $evidences = $input_evidences;
+        $middle_name = $input_middle_name;
     }
 
-    // Validate remarks 
-    $input_remarks = trim($_POST["remarks"]);
-    if(empty($input_remarks)){
-        $remarks_err = "Please enter an address.";     
+    // Validate address
+    $input_address = trim($_POST["address"]);
+    if(empty($input_address)){
+        $address_err = "Please enter an address.";     
     } else{
-        $remarks = $input_remarks;
+        $address = $input_address;
     }
     
-
-
+    // Validate salary
+    $input_salary = trim($_POST["salary"]);
+    if(empty($input_salary)){
+        $salary_err = "Please enter the salary amount.";     
+    } elseif(!ctype_digit($input_salary)){
+        $salary_err = "Please enter a positive integer value.";
+    } else{
+        $salary = $input_salary;
+    }
+    
     // Check input errors before inserting in database
     if(empty($last_name_err) && empty($first_name_err) && empty($middle_name_err) && empty($address_err) && empty($salary_err)){
         // Check for duplicate record
@@ -60,18 +68,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
  
         if($stmt = $pdo->prepare($sql)){
             // Set parameters
-            $param_accomplishments = $accomplishments;
-            $param_date = $date;
-            $param_evidences = $evidences;
-            $param_remarks = $remarks;
-           
+            $param_last_name = $last_name;
+            $param_first_name = $first_name;
+            $param_middle_name = $middle_name;
+            $param_address = $address;
+            $param_salary = $salary;
             
             // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":accomplishments", $param_accomplishments);
-            $stmt->bindParam(":date", $param_date);
-            $stmt->bindParam(":evidences", $param_evidences);
-            $stmt->bindParam(":remarks", $param_remarks);
-
+            $stmt->bindParam(":last_name", $param_last_name);
+            $stmt->bindParam(":first_name", $param_first_name);
+            $stmt->bindParam(":middle_name", $param_middle_name);
+            $stmt->bindParam(":address", $param_address);
+            $stmt->bindParam(":salary", $param_salary);
 
             // Attempt to execute the prepared statement
             if($stmt->execute()){
@@ -84,22 +92,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
  
                     if ($stmt = $pdo->prepare($sql)) {
                         // Set parameters
-                        $param_accomplishments = $accomplishments;
-                        $param_date = $date;
-                        $param_evidences = $evidences;
-                        $param_remarks = $remarks;
+                        $param_last_name = $last_name;
+                        $param_first_name = $first_name;
+                        $param_middle_name = $middle_name;
+                        $param_address = $address;
+                        $param_salary = $salary;
 
                         // Bind variables to the prepared statement as parameters
-                        $stmt->bindParam(":accomplishments", $param_accomplishments);
-                        $stmt->bindParam(":date", $param_date);
-                        $stmt->bindParam(":evidences", $param_evidences);
-                        $stmt->bindParam(":remarks", $param_remarks);
+                        $stmt->bindParam(":last_name", $param_last_name);
+                        $stmt->bindParam(":first_name", $param_first_name);
+                        $stmt->bindParam(":middle_name", $param_middle_name);
+                        $stmt->bindParam(":address", $param_address);
+                        $stmt->bindParam(":salary", $param_salary);
 
                         // Attempt to execute the prepared statement
                         if ($stmt->execute()) {
                             // Set the form submission flag to true
                             $form_submitted = true;
-                            $accomplishments = $date = $evidences = $remarks = "";;
+                            $last_name = $first_name = $middle_name = $address = $salary = "";
                         } else {
                             echo "Oops! Something went wrong. Please try again later.";
                         }
@@ -148,29 +158,33 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <p>Please fill this form and submit to add employee record to the database.</p>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="form-group">
-                            <label>Accomplishments</label>
-                            <input type="text" name="accomplishments" class="form-control <?php echo (!empty($accomplishments_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $accomplishments; ?>">
-                            <span class="invalid-feedback"><?php echo $accomplishments_err;?></span>
+                            <label>Last Name</label>
+                            <input type="text" name="last_name" class="form-control <?php echo (!empty($last_name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $last_name; ?>">
+                            <span class="invalid-feedback"><?php echo $last_name_err;?></span>
                         </div>
 
                         <div class="form-group">
-                            <label>Date</label>
-                            <input type="text" name="date" class="form-control <?php echo (!empty($date_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $date; ?>">
-                            <span class="invalid-feedback"><?php echo $date_err;?></span>
+                            <label>First Name</label>
+                            <input type="text" name="first_name" class="form-control <?php echo (!empty($first_name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $first_name; ?>">
+                            <span class="invalid-feedback"><?php echo $first_name_err;?></span>
                         </div>
 
                         <div class="form-group">
-                            <label>Evidences</label>
-                            <input type="text" name="evidences" class="form-control <?php echo (!empty($evidences_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $evidences; ?>">
-                            <span class="invalid-feedback"><?php echo $evidences_err;?></span>
+                            <label>Middle Name</label>
+                            <input type="text" name="middle_name" class="form-control <?php echo (!empty($middle_name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $middle_name; ?>">
+                            <span class="invalid-feedback"><?php echo $middle_name_err;?></span>
                         </div>
 
                         <div class="form-group">
-                            <label>Remarks</label>
-                            <textarea name="remarks" class="form-control <?php echo (!empty($remarks_err)) ? 'is-invalid' : ''; ?>"><?php echo $remarks; ?></textarea>
-                            <span class="invalid-feedback"><?php echo $remarks_err;?></span>
+                            <label>Address</label>
+                            <textarea name="address" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>"><?php echo $address; ?></textarea>
+                            <span class="invalid-feedback"><?php echo $address_err;?></span>
                         </div>
-
+                        <div class="form-group">
+                            <label>Salary</label>
+                            <input type="text" name="salary" class="form-control <?php echo (!empty($salary_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $salary; ?>">
+                            <span class="invalid-feedback"><?php echo $salary_err;?></span>
+                        </div>
                         <input type="submit" class="btn btn-primary" value="Submit">
                         <a href="dashboard.php" class="btn btn-secondary ml-2">Cancel</a>
                     </form>
